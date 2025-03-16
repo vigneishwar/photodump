@@ -39,13 +39,15 @@ func contactHandler(w http.ResponseWriter, r *http.Request) {
 }
 
 func faqHandler(w http.ResponseWriter, r *http.Request) {
-    w.Write([]byte("Frequently Asked Questions"))
+    // w.Write([]byte("Frequently Asked Questions"))
+    tplPath := filepath.Join("templates", "faq.gohtml")
+    executeTemplate(w, tplPath)
 }
 
-func userHandler(w http.ResponseWriter, r *http.Request) {
-    userID := chi.URLParam(r, "userID")
-    w.Write([]byte(fmt.Sprintf("User ID: %s", userID)))
-}
+// func userHandler(w http.ResponseWriter, r *http.Request) {
+//     userID := chi.URLParam(r, "userID")
+//     w.Write([]byte(fmt.Sprintf("User ID: %s", userID)))
+// }
 
 func main() {
     r := chi.NewRouter()
@@ -58,7 +60,7 @@ func main() {
     r.Get("/", handlerFunc)
     r.Get("/contact", contactHandler)
     r.Get("/faq", faqHandler)
-    r.Get("/user/{userID}", userHandler) // Route with URL parameter
+    // r.Get("/user/{userID}", userHandler) // Route with URL parameter
 
     // Custom 404 handler
     r.NotFound(func(w http.ResponseWriter, r *http.Request) {
